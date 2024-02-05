@@ -12,8 +12,8 @@ using clean_arc_api.Infrastructure.Data;
 namespace clean_arc_api.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240205091627_InitialData")]
-    partial class InitialData
+    [Migration("20240205122845_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
