@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using clean_arc_api.Infrastructure.Data;
@@ -11,9 +12,11 @@ using clean_arc_api.Infrastructure.Data;
 namespace clean_arc_api.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206094103_Book_and_BookCategory_add")]
+    partial class Book_and_BookCategory_add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,13 +183,16 @@ namespace clean_arc_api.Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
+                    b.Property<int>("ListId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("ListId");
 
                     b.ToTable("Books");
                 });
@@ -414,13 +420,13 @@ namespace clean_arc_api.Infrastructure.Migrations
 
             modelBuilder.Entity("clean_arc_api.Domain.Entities.Book", b =>
                 {
-                    b.HasOne("clean_arc_api.Domain.Entities.BookCategory", "BookCategory")
-                        .WithMany("Books")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("clean_arc_api.Domain.Entities.BookCategory", "List")
+                        .WithMany("Items")
+                        .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BookCategory");
+                    b.Navigation("List");
                 });
 
             modelBuilder.Entity("clean_arc_api.Domain.Entities.TodoItem", b =>
@@ -459,7 +465,7 @@ namespace clean_arc_api.Infrastructure.Migrations
 
             modelBuilder.Entity("clean_arc_api.Domain.Entities.BookCategory", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("clean_arc_api.Domain.Entities.TodoList", b =>

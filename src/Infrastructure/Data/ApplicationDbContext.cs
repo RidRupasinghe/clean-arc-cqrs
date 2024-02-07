@@ -15,8 +15,17 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Book> Books => Set<Book>();
+
+    public DbSet<BookCategory> BookCategories => Set<BookCategory>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Book>()
+            .HasOne(c => c.BookCategory)
+            .WithMany(p => p.Books)
+            .HasForeignKey(c => c.CategoryId);
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(builder);
