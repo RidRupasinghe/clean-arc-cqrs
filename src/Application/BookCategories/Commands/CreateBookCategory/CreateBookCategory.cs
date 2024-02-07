@@ -32,8 +32,6 @@ public class CreateBookCategoryCommandHandler : IRequestHandler<CreateBookCatego
     {
         var entity = new BookCategory { Title = request.Title };
 
-        entity.AddDomainEvent(new BookCategoryCreatedEvent(entity));
-
         _context.BookCategories.Add(entity);
 
         await _context.SaveChangesAsync(cancellationToken);
