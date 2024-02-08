@@ -135,6 +135,41 @@
             "JWT": []
           }
         ]
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "operationId": "UpdateBook",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/Books/{id}": {
@@ -162,6 +197,41 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BookDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "operationId": "DeleteBook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -999,6 +1069,34 @@
           "categoryId"
         ],
         "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 0
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isbn": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UpdateBookCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "categoryId"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "title": {
             "type": "string",
             "maxLength": 200,
