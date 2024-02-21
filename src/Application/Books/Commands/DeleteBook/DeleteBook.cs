@@ -1,7 +1,10 @@
 ﻿using clean_arc_api.Application.Common.Interfaces;
+using clean_arc_api.Application.Common.Security;
+using clean_arc_api.Domain.Constants;
 
 namespace clean_arc_api.Application.Books.Commands.DeleteBook;
 
+[Authorize(Roles = $"{Roles.Administrator}")]
 public record DeleteBookCommand(int Id) : IRequest<bool>
 {
 }

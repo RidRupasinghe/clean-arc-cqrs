@@ -1,8 +1,11 @@
 ﻿using clean_arc_api.Application.Books.Queries.GetBooks;
 using clean_arc_api.Application.Common.Interfaces;
+using clean_arc_api.Application.Common.Security;
+using clean_arc_api.Domain.Constants;
 
 namespace clean_arc_api.Application.Books.Queries.GetBookById;
 
+[Authorize(Roles = $"{Roles.Administrator}, {Roles.Customer}")]
 public record GetBookByIdQuery(int Id) : IRequest<BookDto>
 {
 }
